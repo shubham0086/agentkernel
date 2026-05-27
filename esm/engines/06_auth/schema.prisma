@@ -1,0 +1,38 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  hashedPassword String
+  createdAt      DateTime @default(now())
+}
+
+model Lead {
+  id            Int               @id @default(autoincrement())
+  name          String
+  companyName   String            @unique
+  contactPerson String
+  phone         String?
+  category      String
+  source        String            @default("custom")
+  stage         String            @default("new")
+  createdAt     DateTime          @default(now())
+  pitches       OutreachMessage[]
+}
+
+model OutreachMessage {
+  id          Int      @id @default(autoincrement())
+  leadId      Int
+  channel     String   @default("whatsapp")
+  messageText String
+  status      String   @default("draft")
+  createdAt   DateTime @default(now())
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+}
