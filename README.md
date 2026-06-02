@@ -1,4 +1,4 @@
-# AgentKernel (formerly Equilibrium)
+# AgentKernel
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](pyproject.toml)
@@ -7,9 +7,22 @@
 [![SQLite Sovereign Memory](https://img.shields.io/badge/Memory%20Store-SQLite-lightblue.svg)](python/engines/02_memory)
 [![Video as Code](https://img.shields.io/badge/Video--as--Code-Remotion-ff69b4.svg)](esm/engines/05_media)
 
-**Equilibrium** is a template repository containing a modular, production-ready suite of agentic engines extracted and modernized from active production-hardened systems (**Agentic-SDLC**, **Founder Growth OS**, **AIOps**, and **ACE App Builder**). 
+**Building the nervous system of autonomous software.**
 
-This platform serves as a benchmark template showing how to build highly resilient, keyless-default, and sovereign AI backend infrastructures in both **Async Python** and **Modern ESModules (ESM) JavaScript**.
+AgentKernel is a production-first infrastructure layer for autonomous systems.
+
+It provides the core capabilities required to build reliable AI-powered software:
+
+- Orchestration
+- Memory
+- Routing
+- Execution
+- Recovery
+- Observability
+
+Most AI frameworks help agents think.
+
+AgentKernel helps autonomous systems operate.
 
 ---
 
@@ -30,7 +43,7 @@ AgentKernel is six modular, production-ready engines written in both Async Pytho
 
 ## 🚀 Get Started (Pick Your Path)
 
-**New to Equilibrium?** Start here. Choose based on what you're building:
+**New to AgentKernel?** Start here. Choose based on what you're building:
 
 ### Path A: Single Engine (Just the Router)
 **Best for**: Testing LLM routing, learning fallback chains, optimizing tokens
@@ -67,7 +80,7 @@ docker-compose up --build
 
 ### Vibecoder Problems This Solves
 
-| Your Problem | Equilibrium Solution |
+| Your Problem | AgentKernel Solution |
 |--------------|---------------------|
 | "LLM costs blowing up" | Engine 01: token optimizer saves 20-30%, fallback chains = no vendor lock-in |
 | "API goes down = app down" | Every engine has keyless fallback (Ollama, DuckDuckGo, in-memory) |
@@ -115,7 +128,7 @@ docker-compose up --build
 ## 📂 Repository Directory Layout
 
 ```
-equilibrium/
+agentkernel/
 ├── LICENSE                        ← MIT License
 ├── README.md                      ← Recruiter overview
 ├── QUICK_START.md                 ← Fast setup guide
