@@ -144,3 +144,38 @@ equilibrium/
     ├── package.json
     └── tsconfig.json
 ```
+
+---
+
+## Example: Research Video Assistant
+
+The `examples/research-video-assistant/` folder shows all 6 engines wired together into a single app: scrape leads, store them, generate Hinglish outreach copy, route through the LLM, cache the response, and render a Remotion video with TTS voice.
+
+```mermaid
+graph TD
+    A[Scraper & Retriever Engine 03] -->|Raw Lead Data| B(Auth & Database Engine 06)
+    B -->|Persisted Leads| C[ChaiPitch Outreach Engine 05]
+    C -->|Draft Message Prompts| D[Multi-Provider LLM Router Engine 01]
+    D -->|Active Input Guardrails Check| D1[Guardrails & Sanitizer]
+    D1 -->|Token-Optimized Prompts| E[Model Failover Chain]
+    E -->|API Timeout or Error| E1[Fallback Provider]
+    E -->|Successful Generation| F[Sovereign Cache Memory Engine 02]
+    F -->|Fingerprinted SHA-256 Hit| E
+    F -->|SCAR Repeat Failures Guard| D
+    E -->|Narration Script & Copy| G[Remotion Video Composition Engine 05]
+    G -->|ElevenLabs/Gemini TTS Voice| H[Video rendering output]
+
+    style A fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
+    style D fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
+    style F fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
+    style G fill:#E91E63,stroke:#333,stroke-width:2px,color:#fff
+```
+
+Run it:
+```bash
+# Python
+python examples/research-video-assistant/run_assistant.py
+
+# JavaScript
+node examples/research-video-assistant/run_assistant.js
+```
