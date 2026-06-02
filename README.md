@@ -1,4 +1,4 @@
-# 🌌 Equilibrium (Advanced Agentic, Media & Outreach Platform)
+# AgentKernel (formerly Equilibrium)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](pyproject.toml)
@@ -13,29 +13,18 @@ This platform serves as a benchmark template showing how to build highly resilie
 
 ---
 
-## 🏗️ System Architecture Flow
+## The Six Engines
 
-The following Mermaid diagram shows how the six core backend engines interact inside a unified production run (e.g., the *Research Video Assistant* example app):
+AgentKernel is six modular, production-ready engines written in both Async Python and ESM JavaScript. Every engine is independently useful; use one or wire them together.
 
-```mermaid
-graph TD
-    A[Scraper & Retriever Engine 03] -->|Raw Lead Data| B(Auth & Database Engine 06)
-    B -->|Persisted Leads| C[ChaiPitch Outreach Engine 05]
-    C -->|Draft Message Prompts| D[Multi-Provider LLM Router Engine 01]
-    D -->|Active Input Guardrails Check| D1[Guardrails & Sanitizer]
-    D1 -->|Token-Optimized Prompts| E[Model Failover Chain]
-    E -->|API Timeout or Error| E1[Fallback Provider]
-    E -->|Successful Generation| F[Sovereign Cache Memory Engine 02]
-    F -->|Fingerprinted SHA-256 Hit| E
-    F -->|SCAR Repeat Failures Guard| D
-    E -->|Narration Script & Copy| G[Remotion Video Composition Engine 05]
-    G -->|ElevenLabs/Gemini TTS Voice| H[Video rendering output]
-    
-    style A fill:#4CAF50,stroke:#333,stroke-width:2px,color:#fff
-    style D fill:#2196F3,stroke:#333,stroke-width:2px,color:#fff
-    style F fill:#9C27B0,stroke:#333,stroke-width:2px,color:#fff
-    style G fill:#E91E63,stroke:#333,stroke-width:2px,color:#fff
-```
+| Engine | What It Does | Location |
+|--------|--------------|----------|
+| **01 Router** | Multi-provider LLM routing with circuit breakers, fallover chains, token optimization | `python/engines/01_router/`, `esm/engines/01_router/` |
+| **02 Memory** | Sovereign cached memory (SCAR repeat-failure guard, SHA-256 idempotency cache) | `python/engines/02_memory/`, `esm/engines/02_memory/` |
+| **03 Retriever** | Web search, Firecrawl scraping, dependency graphing, content analysis | `python/engines/03_retriever/`, `esm/engines/03_retriever/` |
+| **04 Queue** | Distributed task queue with circuit breaker, concurrency control, SSE streaming | `python/engines/04_queue/`, `esm/engines/04_queue/` |
+| **05 Media** | TTS voice synthesis (6 providers), subtitle generation, story templates | `python/engines/05_media/`, `esm/engines/05_media/` |
+| **06 Auth** | JWT auth, multi-tenant database CRUD, Prisma/SQLAlchemy schemas | `python/engines/06_auth/`, `esm/engines/06_auth/` |
 
 ---
 
