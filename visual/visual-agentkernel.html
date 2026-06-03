@@ -1,0 +1,515 @@
+﻿<style>
+  /* ═══ AgentKernel – Hexagonal Engine Grid ═══ */
+
+  .eq-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2.5rem 1rem 2rem;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    overflow: visible;
+  }
+
+  /* ── Background grid lines (subtle industrial feel) ── */
+  .eq-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(100,116,139,0.06) 39px, rgba(100,116,139,0.06) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(100,116,139,0.06) 39px, rgba(100,116,139,0.06) 40px);
+    pointer-events: none;
+    border-radius: 12px;
+  }
+
+  /* ── Honeycomb container ── */
+  .eq-honeycomb {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    margin: 0 auto 1.5rem;
+  }
+
+  /* ── Individual hexagon cell ── */
+  .eq-hex {
+    position: absolute;
+    width: 120px;
+    height: 104px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    transition: transform 0.3s ease;
+  }
+
+  .eq-hex:hover {
+    transform: translateX(-50%) scale(1.08);
+    z-index: 5;
+  }
+
+  /* Hexagon shape via clip-path (flat-top) */
+  .eq-hex-shape {
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    border: none;
+    transition: filter 0.3s ease;
+  }
+
+  /* Inner glass layer */
+  .eq-hex-inner {
+    position: absolute;
+    inset: 3px;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    background: rgba(12, 15, 25, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Glow layer behind hexagon : steady, only on hover */
+  .eq-hex-glow {
+    position: absolute;
+    inset: -12px;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+    opacity: 0;
+    filter: blur(16px);
+    transition: opacity 0.3s ease;
+  }
+
+  .eq-hex:hover .eq-hex-glow {
+    opacity: 0.4;
+  }
+
+  /* Text inside hex */
+  .eq-hex-icon {
+    position: relative;
+    z-index: 3;
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+    filter: drop-shadow(0 0 6px currentColor);
+  }
+
+  .eq-hex-label {
+    position: relative;
+    z-index: 3;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: #e2e8f0;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  }
+
+  /* ── Hex 1: Smart Router : blue ── */
+  .eq-hex-1 { top: 0; left: 50%; transform: translateX(-50%); }
+  .eq-hex-1 .eq-hex-shape {
+    background: linear-gradient(135deg, #2563eb, #3b82f6, #1d4ed8);
+  }
+  .eq-hex-1 .eq-hex-glow {
+    background: #2563eb;
+    animation-delay: 0s;
+  }
+  .eq-hex-1 .eq-hex-icon { color: #60a5fa; }
+
+  /* ── Hex 2: Repeat Filter : teal ── */
+  .eq-hex-2 { top: 60px; left: calc(50% + 95px); transform: translateX(-50%); }
+  .eq-hex-2 .eq-hex-shape {
+    background: linear-gradient(135deg, #0d9488, #14b8a6, #0f766e);
+  }
+  .eq-hex-2 .eq-hex-glow {
+    background: #0d9488;
+    animation-delay: 0.66s;
+  }
+  .eq-hex-2 .eq-hex-icon { color: #2dd4bf; }
+
+  /* ── Hex 3: Task Queue : amber ── */
+  .eq-hex-3 { top: 168px; left: calc(50% + 95px); transform: translateX(-50%); }
+  .eq-hex-3 .eq-hex-shape {
+    background: linear-gradient(135deg, #d97706, #f59e0b, #b45309);
+  }
+  .eq-hex-3 .eq-hex-glow {
+    background: #d97706;
+    animation-delay: 1.33s;
+  }
+  .eq-hex-3 .eq-hex-icon { color: #fbbf24; }
+
+  /* ── Hex 4: Login Guard : green ── */
+  .eq-hex-4 { bottom: 0; left: 50%; transform: translateX(-50%); }
+  .eq-hex-4 .eq-hex-shape {
+    background: linear-gradient(135deg, #16a34a, #22c55e, #15803d);
+  }
+  .eq-hex-4 .eq-hex-glow {
+    background: #16a34a;
+    animation-delay: 2s;
+  }
+  .eq-hex-4 .eq-hex-icon { color: #4ade80; }
+
+  /* ── Hex 5: Webhook Shield : purple ── */
+  .eq-hex-5 { top: 168px; left: calc(50% - 95px); transform: translateX(-50%); }
+  .eq-hex-5 .eq-hex-shape {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6, #6d28d9);
+  }
+  .eq-hex-5 .eq-hex-glow {
+    background: #7c3aed;
+    animation-delay: 2.66s;
+  }
+  .eq-hex-5 .eq-hex-icon { color: #a78bfa; }
+
+  /* ── Hex 6: Retry Engine : orange ── */
+  .eq-hex-6 { top: 60px; left: calc(50% - 95px); transform: translateX(-50%); }
+  .eq-hex-6 .eq-hex-shape {
+    background: linear-gradient(135deg, #ea580c, #f97316, #c2410c);
+  }
+  .eq-hex-6 .eq-hex-glow {
+    background: #ea580c;
+    animation-delay: 3.33s;
+  }
+  .eq-hex-6 .eq-hex-icon { color: #fb923c; }
+
+  /* ── Pulse animation ── */
+  @keyframes eq-pulse {
+    0%, 100% { opacity: 0; transform: scale(1); }
+    15% { opacity: 0.55; transform: scale(1.05); }
+    30% { opacity: 0; transform: scale(1); }
+  }
+
+  /* ── Center Engine Core ── */
+  .eq-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .eq-core-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 38%, #818cf8, #4338ca 58%, #1e1b4b);
+    box-shadow:
+      0 0 14px rgba(99,102,241,0.45),
+      0 0 34px rgba(67,56,202,0.25),
+      inset 0 -2px 6px rgba(0,0,0,0.45);
+    animation: eq-core-glow 3s ease-in-out infinite;
+    position: relative;
+  }
+
+  .eq-core-dot::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 34%, rgba(199,210,254,0.35), transparent 55%);
+  }
+
+  @keyframes eq-core-glow {
+    0%, 100% {
+      box-shadow:
+        0 0 14px rgba(99,102,241,0.45),
+        0 0 34px rgba(67,56,202,0.25);
+    }
+    50% {
+      box-shadow:
+        0 0 20px rgba(99,102,241,0.65),
+        0 0 48px rgba(67,56,202,0.4);
+    }
+  }
+
+  .eq-core-label {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    text-shadow: 0 0 8px rgba(100,116,139,0.5);
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  /* ── Connection lines from hexagons to core ── */
+  .eq-connections {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .eq-connections svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .eq-conn-line {
+    stroke-width: 1.2;
+    stroke-dasharray: 4 4;
+    opacity: 0.35;
+    animation: eq-dash 12s linear infinite;
+  }
+
+  @keyframes eq-dash {
+    to { stroke-dashoffset: -96; }
+  }
+
+  /* ── Language badges ── */
+  .eq-lang-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .eq-lang-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border: 1px solid rgba(100,116,139,0.25);
+    background: rgba(15,23,42,0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #cbd5e1;
+    transition: all 0.3s ease;
+  }
+
+  .eq-lang-badge:hover {
+    border-color: rgba(100,116,139,0.5);
+    background: rgba(15,23,42,0.85);
+  }
+
+  .eq-lang-badge.eq-py {
+    border-color: rgba(59,130,246,0.3);
+  }
+  .eq-lang-badge.eq-py:hover {
+    border-color: rgba(59,130,246,0.6);
+    box-shadow: 0 0 16px rgba(59,130,246,0.15);
+  }
+
+  .eq-lang-badge.eq-js {
+    border-color: rgba(234,179,8,0.3);
+  }
+  .eq-lang-badge.eq-js:hover {
+    border-color: rgba(234,179,8,0.6);
+    box-shadow: 0 0 16px rgba(234,179,8,0.15);
+  }
+
+  .eq-lang-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+  .eq-py .eq-lang-dot { background: #3b82f6; box-shadow: 0 0 6px rgba(59,130,246,0.6); }
+  .eq-js .eq-lang-dot { background: #eab308; box-shadow: 0 0 6px rgba(234,179,8,0.6); }
+
+  .eq-equals {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #475569;
+    text-shadow: 0 0 8px rgba(100,116,139,0.3);
+  }
+
+  /* ── Subtitle ── */
+  .eq-subtitle {
+    text-align: center;
+    margin-top: 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    color: #475569;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── Responsive adjustments ── */
+  @media (max-width: 480px) {
+    .eq-honeycomb {
+      width: 260px;
+      height: 260px;
+    }
+    .eq-hex {
+      width: 92px;
+      height: 80px;
+    }
+    .eq-hex-icon { font-size: 1rem; }
+    .eq-hex-label { font-size: 0.56rem; }
+    .eq-hex-2, .eq-hex-3 { left: calc(50% + 72px); }
+    .eq-hex-5, .eq-hex-6 { left: calc(50% - 72px); }
+    .eq-hex-2 { top: 46px; }
+    .eq-hex-3 { top: 128px; }
+    .eq-hex-5 { top: 128px; }
+    .eq-hex-6 { top: 46px; }
+    .eq-core-dot { width: 30px; height: 30px; }
+    .eq-core-label { font-size: 0.48rem; }
+    .eq-lang-badge { font-size: 0.62rem; padding: 5px 12px; }
+  }
+
+  @media (max-width: 360px) {
+    .eq-honeycomb {
+      width: 220px;
+      height: 230px;
+    }
+    .eq-hex {
+      width: 78px;
+      height: 68px;
+    }
+    .eq-hex-icon { font-size: 0.85rem; }
+    .eq-hex-label { font-size: 0.5rem; }
+    .eq-hex-2, .eq-hex-3 { left: calc(50% + 60px); }
+    .eq-hex-5, .eq-hex-6 { left: calc(50% - 60px); }
+    .eq-hex-2 { top: 40px; }
+    .eq-hex-3 { top: 110px; }
+    .eq-hex-5 { top: 110px; }
+    .eq-hex-6 { top: 40px; }
+  }
+
+  /* ── Spinning ring around core ── */
+  .eq-core-ring {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(129,140,248,0.28);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: eq-spin 20s linear infinite;
+    z-index: 9;
+    pointer-events: none;
+  }
+
+  .eq-core-ring::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #818cf8;
+    box-shadow: 0 0 8px rgba(129,140,248,0.7);
+  }
+
+  @keyframes eq-spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+</style>
+
+<div class="eq-wrap">
+
+  <!-- Honeycomb grid -->
+  <div class="eq-honeycomb">
+
+    <!-- Connection lines (SVG) -->
+    <div class="eq-connections">
+      <svg viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Lines from each hexagon center to the core center (170, 170) -->
+        <!-- Hex 1: top center (170, 52) -->
+        <line x1="170" y1="52" x2="170" y2="170" class="eq-conn-line" stroke="#3b82f6"/>
+        <!-- Hex 2: top-right (265, 112) -->
+        <line x1="265" y1="112" x2="170" y2="170" class="eq-conn-line" stroke="#14b8a6"/>
+        <!-- Hex 3: bottom-right (265, 220) -->
+        <line x1="265" y1="220" x2="170" y2="170" class="eq-conn-line" stroke="#f59e0b"/>
+        <!-- Hex 4: bottom center (170, 288) -->
+        <line x1="170" y1="288" x2="170" y2="170" class="eq-conn-line" stroke="#22c55e"/>
+        <!-- Hex 5: bottom-left (75, 220) -->
+        <line x1="75" y1="220" x2="170" y2="170" class="eq-conn-line" stroke="#8b5cf6"/>
+        <!-- Hex 6: top-left (75, 112) -->
+        <line x1="75" y1="112" x2="170" y2="170" class="eq-conn-line" stroke="#f97316"/>
+      </svg>
+    </div>
+
+    <!-- Hex 1: Smart Router -->
+    <div class="eq-hex eq-hex-1">
+      <div class="eq-hex-glow"></div>
+      <div class="eq-hex-shape"></div>
+      <div class="eq-hex-inner"></div>
+      <span class="eq-hex-icon">⇌</span>
+      <span class="eq-hex-label">Smart<br>Router</span>
+    </div>
+
+    <!-- Hex 2: Repeat Filter -->
+    <div class="eq-hex eq-hex-2">
+      <div class="eq-hex-glow"></div>
+      <div class="eq-hex-shape"></div>
+      <div class="eq-hex-inner"></div>
+      <span class="eq-hex-icon">◈</span>
+      <span class="eq-hex-label">Repeat<br>Filter</span>
+    </div>
+
+    <!-- Hex 3: Task Queue -->
+    <div class="eq-hex eq-hex-3">
+      <div class="eq-hex-glow"></div>
+      <div class="eq-hex-shape"></div>
+      <div class="eq-hex-inner"></div>
+      <span class="eq-hex-icon">☰</span>
+      <span class="eq-hex-label">Task<br>Queue</span>
+    </div>
+
+    <!-- Hex 4: Login Guard -->
+    <div class="eq-hex eq-hex-4">
+      <div class="eq-hex-glow"></div>
+      <div class="eq-hex-shape"></div>
+      <div class="eq-hex-inner"></div>
+      <span class="eq-hex-icon">⊙</span>
+      <span class="eq-hex-label">Login<br>Guard</span>
+    </div>
+
+    <!-- Hex 5: Webhook Shield -->
+    <div class="eq-hex eq-hex-5">
+      <div class="eq-hex-glow"></div>
+      <div class="eq-hex-shape"></div>
+      <div class="eq-hex-inner"></div>
+      <span class="eq-hex-icon">◆</span>
+      <span class="eq-hex-label">Webhook<br>Shield</span>
+    </div>
+
+    <!-- Hex 6: Retry Engine -->
+    <div class="eq-hex eq-hex-6">
+      <div class="eq-hex-glow"></div>
+      <div class="eq-hex-shape"></div>
+      <div class="eq-hex-inner"></div>
+      <span class="eq-hex-icon">↻</span>
+      <span class="eq-hex-label">Retry<br>Engine</span>
+    </div>
+
+    <!-- Center: Engine Core -->
+    <div class="eq-core-ring"></div>
+    <div class="eq-core">
+      <div class="eq-core-dot"></div>
+      <span class="eq-core-label">Engine Core</span>
+    </div>
+
+  </div>
+
+  <!-- Language badges -->
+  <div class="eq-lang-row">
+    <span class="eq-lang-badge eq-py">
+      <span class="eq-lang-dot"></span>
+      Python
+    </span>
+    <span class="eq-equals">=</span>
+    <span class="eq-lang-badge eq-js">
+      <span class="eq-lang-dot"></span>
+      JavaScript
+    </span>
+  </div>
+
+  <!-- Subtitle -->
+  <div class="eq-subtitle">Six engines &middot; Two languages &middot; One pattern catalog</div>
+
+</div>

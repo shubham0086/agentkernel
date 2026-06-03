@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 600" width="100%" height="100%" style="background-color:#0c0f19; font-family:'Space Grotesk',-apple-system,sans-serif;">
+  <defs>
+    <pattern id="eq-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#1e293b" fill-opacity="0.5"/>
+    </pattern>
+    <linearGradient id="eq-rightbg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a1320" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0c0f19" stop-opacity="0"/>
+    </linearGradient>
+    <style>
+      /* continuous flow down the spine */
+      .eq-spine { stroke-dasharray:7,11; animation:eq-flow 1.8s linear infinite; }
+      @keyframes eq-flow { to { stroke-dashoffset:-18; } }
+      /* indicator dot */
+      .eq-ind { animation:eq-i 2s ease-in-out infinite; }
+      @keyframes eq-i { 0%,100%{r:4;fill-opacity:.5;} 50%{r:6;fill-opacity:1;} }
+      /* staggered node activation — 12s cycle, 6 nodes */
+      .eq-n0 { animation:eq-a0 12s ease-in-out infinite; }
+      .eq-n1 { animation:eq-a1 12s ease-in-out infinite; }
+      .eq-n2 { animation:eq-a2 12s ease-in-out infinite; }
+      .eq-n3 { animation:eq-a3 12s ease-in-out infinite; }
+      .eq-n4 { animation:eq-a4 12s ease-in-out infinite; }
+      .eq-n5 { animation:eq-a5 12s ease-in-out infinite; }
+      @keyframes eq-a0 { 0%,12%{stroke:#14b8a6;filter:drop-shadow(0 0 9px rgba(20,184,166,.55));} 18%,100%{stroke:#1e293b;filter:none;} }
+      @keyframes eq-a1 { 0%,15%{stroke:#1e293b;} 16%,28%{stroke:#6366f1;filter:drop-shadow(0 0 9px rgba(99,102,241,.55));} 34%,100%{stroke:#1e293b;filter:none;} }
+      @keyframes eq-a2 { 0%,32%{stroke:#1e293b;} 33%,45%{stroke:#a855f7;filter:drop-shadow(0 0 9px rgba(168,85,247,.55));} 51%,100%{stroke:#1e293b;filter:none;} }
+      @keyframes eq-a3 { 0%,49%{stroke:#1e293b;} 50%,62%{stroke:#f59e0b;filter:drop-shadow(0 0 9px rgba(245,158,11,.55));} 68%,100%{stroke:#1e293b;filter:none;} }
+      @keyframes eq-a4 { 0%,66%{stroke:#1e293b;} 67%,79%{stroke:#ef4444;filter:drop-shadow(0 0 9px rgba(239,68,68,.55));} 85%,100%{stroke:#1e293b;filter:none;} }
+      @keyframes eq-a5 { 0%,83%{stroke:#1e293b;} 84%,96%{stroke:#10b981;filter:drop-shadow(0 0 9px rgba(16,185,129,.55));} 100%{stroke:#1e293b;filter:none;} }
+    </style>
+    <marker id="eq-arr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+      <path d="M0 2 L7 5 L0 8z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect width="920" height="600" fill="#0c0f19"/>
+  <rect width="920" height="600" fill="url(#eq-dots)"/>
+
+  <!-- ══ HEADER ══ -->
+  <rect x="0" y="0" width="920" height="72" fill="#0f172a"/>
+  <rect x="0" y="71" width="920" height="1" fill="#1e293b"/>
+  <rect x="0" y="0" width="4" height="72" fill="#14b8a6"/>
+  <text x="32" y="33" fill="#f8fafc" font-size="17" font-weight="700" letter-spacing="-0.4">EQUILIBRIUM — SIX BACKEND ENGINES</text>
+  <text x="32" y="57" fill="#64748b" font-size="12">The infrastructure layer beneath every production system · Written twice for portability</text>
+  <rect x="744" y="23" width="140" height="26" rx="5" fill="rgba(20,184,166,0.1)" stroke="#14b8a6" stroke-width="1"/>
+  <text x="814" y="40" fill="#2dd4bf" font-size="10" font-weight="600" text-anchor="middle">OPEN SOURCE · TRACK 03</text>
+
+  <!-- Right panel subtle backdrop + divider -->
+  <rect x="468" y="72" width="452" height="528" fill="url(#eq-rightbg)"/>
+  <line x1="462" y1="96" x2="462" y2="568" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- ═══════════ LEFT: TEXT HALF ═══════════ -->
+  <text x="32" y="118" fill="#2dd4bf" font-size="11" font-weight="700" letter-spacing="2">WHAT IT IS</text>
+
+  <text x="32" y="156" fill="#f8fafc" font-size="22" font-weight="700">Two Languages,</text>
+  <text x="32" y="186" fill="#f8fafc" font-size="22" font-weight="700">One Pattern Catalog</text>
+
+  <text x="32" y="224" fill="#94a3b8" font-size="13.5">The plumbing layer behind every production</text>
+  <text x="32" y="248" fill="#94a3b8" font-size="13.5">system on this site — lifted out, cleaned of</text>
+  <text x="32" y="272" fill="#94a3b8" font-size="13.5">app-specifics, and written twice.</text>
+
+  <text x="32" y="308" fill="#94a3b8" font-size="13.5">Once in async Python 3.12, once in modern</text>
+  <text x="32" y="332" fill="#94a3b8" font-size="13.5">ESM JavaScript — so the patterns travel</text>
+  <text x="32" y="356" fill="#94a3b8" font-size="13.5">cleanly between runtimes.</text>
+
+  <!-- decision callout -->
+  <rect x="32" y="382" width="402" height="64" rx="8" fill="rgba(20,184,166,0.05)" stroke="rgba(20,184,166,0.25)" stroke-width="1.2"/>
+  <text x="48" y="408" fill="#2dd4bf" font-size="11" font-weight="700">DESIGN INVARIANT</text>
+  <text x="48" y="432" fill="#cbd5e1" font-size="12.5">Every engine: circuit-broken, idempotent,</text>
+  <text x="48" y="452" fill="#cbd5e1" font-size="12.5">and language-portable by construction.</text>
+
+  <!-- left stats -->
+  <line x1="32" y1="486" x2="434" y2="486" stroke="#1e293b" stroke-width="1"/>
+  <text x="32" y="512" fill="#14b8a6" font-size="24" font-weight="700">6</text>
+  <text x="32" y="532" fill="#64748b" font-size="11">Engines</text>
+  <text x="150" y="512" fill="#6366f1" font-size="24" font-weight="700">2</text>
+  <text x="150" y="532" fill="#64748b" font-size="11">Languages</text>
+  <text x="290" y="512" fill="#a855f7" font-size="15" font-weight="700">Redis + SQLite</text>
+  <text x="290" y="532" fill="#64748b" font-size="11">Zero heavy deps</text>
+
+  <!-- ═══════════ RIGHT: ANIMATION HALF ═══════════ -->
+  <text x="691" y="118" fill="#475569" font-size="10" font-weight="600" letter-spacing="2" text-anchor="middle">LIVE REQUEST PATH</text>
+
+  <!-- spine line down the center x=691 -->
+  <line x1="691" y1="150" x2="691" y2="500" stroke="#334155" stroke-width="2" class="eq-spine"/>
+  <!-- traveling indicator -->
+  <circle cx="691" cy="146" r="5" fill="#14b8a6" class="eq-ind"/>
+
+  <!-- Node 0: JWT Auth -->
+  <g>
+    <rect x="541" y="138" width="300" height="46" rx="9" fill="#0f172a" stroke="#1e293b" stroke-width="1.8" class="eq-n0"/>
+    <circle cx="566" cy="161" r="11" fill="rgba(20,184,166,0.12)"/>
+    <text x="566" y="165" fill="#2dd4bf" font-size="10" font-weight="700" text-anchor="middle">01</text>
+    <text x="588" y="158" fill="#f8fafc" font-size="13" font-weight="600">JWT Auth + Refresh</text>
+    <text x="588" y="175" fill="#64748b" font-size="10">Rotating tokens · revoke on reset</text>
+  </g>
+
+  <!-- Node 1: LLM Router -->
+  <g>
+    <rect x="541" y="212" width="300" height="46" rx="9" fill="#0f172a" stroke="#1e293b" stroke-width="1.8" class="eq-n1"/>
+    <circle cx="566" cy="235" r="11" fill="rgba(99,102,241,0.12)"/>
+    <text x="566" y="239" fill="#818cf8" font-size="10" font-weight="700" text-anchor="middle">02</text>
+    <text x="588" y="232" fill="#f8fafc" font-size="13" font-weight="600">LLM Router</text>
+    <text x="588" y="249" fill="#64748b" font-size="10">Anthropic → OpenAI → Ollama failover</text>
+  </g>
+
+  <!-- Node 2: SCAR Cache -->
+  <g>
+    <rect x="541" y="286" width="300" height="46" rx="9" fill="#0f172a" stroke="#1e293b" stroke-width="1.8" class="eq-n2"/>
+    <circle cx="566" cy="309" r="11" fill="rgba(168,85,247,0.12)"/>
+    <text x="566" y="313" fill="#c084fc" font-size="10" font-weight="700" text-anchor="middle">03</text>
+    <text x="588" y="306" fill="#f8fafc" font-size="13" font-weight="600">SCAR Idempotency Cache</text>
+    <text x="588" y="323" fill="#64748b" font-size="10">SHA-256 dedup · SQLite-backed · TTL</text>
+  </g>
+
+  <!-- Node 3: Redis Queue -->
+  <g>
+    <rect x="541" y="360" width="300" height="46" rx="9" fill="#0f172a" stroke="#1e293b" stroke-width="1.8" class="eq-n3"/>
+    <circle cx="566" cy="383" r="11" fill="rgba(245,158,11,0.12)"/>
+    <text x="566" y="387" fill="#fbbf24" font-size="10" font-weight="700" text-anchor="middle">04</text>
+    <text x="588" y="380" fill="#f8fafc" font-size="13" font-weight="600">Redis Task Queue</text>
+    <text x="588" y="397" fill="#64748b" font-size="10">Per-consumer circuit breaker + DLQ</text>
+  </g>
+
+  <!-- Node 4: HMAC Webhooks -->
+  <g>
+    <rect x="541" y="434" width="300" height="46" rx="9" fill="#0f172a" stroke="#1e293b" stroke-width="1.8" class="eq-n4"/>
+    <circle cx="566" cy="457" r="11" fill="rgba(239,68,68,0.12)"/>
+    <text x="566" y="461" fill="#f87171" font-size="10" font-weight="700" text-anchor="middle">05</text>
+    <text x="588" y="454" fill="#f8fafc" font-size="13" font-weight="600">HMAC Webhook Layer</text>
+    <text x="588" y="471" fill="#64748b" font-size="10">Constant-time verify · replay nonce</text>
+  </g>
+
+  <!-- Node 5: Retry Coordinator (output) -->
+  <g>
+    <rect x="541" y="508" width="300" height="46" rx="9" fill="rgba(16,185,129,0.06)" stroke="#1e293b" stroke-width="1.8" class="eq-n5"/>
+    <circle cx="566" cy="531" r="11" fill="rgba(16,185,129,0.14)"/>
+    <text x="566" y="535" fill="#4ade80" font-size="10" font-weight="700" text-anchor="middle">06</text>
+    <text x="588" y="528" fill="#f8fafc" font-size="13" font-weight="600">Idempotent Retry Coordinator</text>
+    <text x="588" y="545" fill="#64748b" font-size="10">Exactly-once · keyed state machine</text>
+  </g>
+
+</svg>

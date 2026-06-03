@@ -26,6 +26,58 @@ AgentKernel helps autonomous systems operate.
 
 ---
 
+## Visual Architecture
+
+**Six engines — how they compose:**
+
+```mermaid
+graph LR
+    APP([Your App]) --> R01
+
+    subgraph INFRA ["AgentKernel Engines"]
+        direction TB
+        R01[01 Router\nLLM routing + circuit breaker\nBedrock → OpenAI → Ollama]
+        R02[02 Memory\nSHA-256 idempotency cache\nSCAR repeat-failure guard]
+        R03[03 Retriever\nWeb search + Firecrawl\ndependency graphing]
+        R04[04 Queue\nRedis distributed queue\nSSE streaming + concurrency]
+        R05[05 Media\nTTS 6 providers\nRemotion video rendering]
+        R06[06 Auth\nJWT + multi-tenant\nPrisma / SQLAlchemy]
+    end
+
+    R01 --> R02
+    R02 --> R03
+    R03 --> R04
+    R04 --> OUT([Artifact])
+    R05 --> OUT
+    R06 --> OUT
+
+    style APP  fill:#0f172a,stroke:#6366f1,color:#818cf8
+    style R01  fill:#1e293b,stroke:#6366f1,color:#f8fafc
+    style R02  fill:#1e293b,stroke:#818cf8,color:#f8fafc
+    style R03  fill:#1e293b,stroke:#a855f7,color:#f8fafc
+    style R04  fill:#1e293b,stroke:#a855f7,color:#f8fafc
+    style R05  fill:#1e293b,stroke:#f59e0b,color:#f8fafc
+    style R06  fill:#1e293b,stroke:#10b981,color:#f8fafc
+    style OUT  fill:#0f172a,stroke:#10b981,color:#10b981
+```
+
+**Architecture reference (all 6 engines annotated):**
+
+![AgentKernel Architecture Reference](diagrams/agentkernel-flowchart.svg)
+
+**Animated engine map (open in browser):**
+
+The `visual/` folder contains `visual-agentkernel.html` — a standalone animated diagram showing all 6 engines lighting up as a request flows through the stack. No dependencies, no build step.
+
+```
+open visual/visual-agentkernel.html
+# or: python -m http.server 8080 → localhost:8080/visual/visual-agentkernel.html
+```
+
+> Full portfolio case study with live animations: [shubham0086.github.io/MyPortfolio.github.io/projects/equilibrium.html](https://shubham0086.github.io/MyPortfolio.github.io/projects/equilibrium.html)
+
+---
+
 ## The Six Engines
 
 AgentKernel is six modular, production-ready engines written in both Async Python and ESM JavaScript. Every engine is independently useful; use one or wire them together.
