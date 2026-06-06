@@ -1,5 +1,9 @@
 # AgentKernel
 
+> **IMPORTANT**: This repository contains real, production-ready, battle-tested code extracted directly from active commercial systems (like Agency OS or Founder Growth OS), rather than simplified mock learning artifacts.
+>
+> For project walkthroughs, architecture flowcharts, and system context, visit the live landing page: [shubham0086.github.io/MyPortfolio.github.io/projects/equilibrium.html](https://shubham0086.github.io/MyPortfolio.github.io/projects/equilibrium.html)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](pyproject.toml)
 [![JS Standard](https://img.shields.io/badge/JS-ESModules--ESM-brightgreen.svg)](package.json)
