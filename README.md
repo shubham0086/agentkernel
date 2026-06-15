@@ -11,6 +11,12 @@
 [![SQLite Sovereign Memory](https://img.shields.io/badge/Memory%20Store-SQLite-lightblue.svg)](python/engines/02_memory)
 [![Video as Code](https://img.shields.io/badge/Video--as--Code-Remotion-ff69b4.svg)](esm/engines/05_media)
 
+<div align="center">
+
+![AgentKernel — a request flowing through six engines](engines.svg)
+
+</div>
+
 **Building the nervous system of autonomous software.**
 
 AgentKernel is a production-first infrastructure layer for autonomous systems.
