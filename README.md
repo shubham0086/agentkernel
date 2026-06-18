@@ -2,7 +2,7 @@
 
 > **IMPORTANT**: This repository contains real, production-ready, battle-tested code extracted directly from active commercial systems (like Agency OS or Founder Growth OS), rather than simplified mock learning artifacts.
 >
-> For project walkthroughs, architecture flowcharts, and system context, visit the live landing page: [shubham0086.github.io/MyPortfolio.github.io/projects/equilibrium.html](https://shubham0086.github.io/MyPortfolio.github.io/projects/equilibrium.html)
+> For project walkthroughs, architecture flowcharts, and system context, visit the live landing page: [my-portfolio-github-io-beta-five.vercel.app/projects/equilibrium.html](https://my-portfolio-github-io-beta-five.vercel.app/projects/equilibrium.html)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](pyproject.toml)
@@ -84,7 +84,7 @@ open visual/visual-agentkernel.html
 # or: python -m http.server 8080 → localhost:8080/visual/visual-agentkernel.html
 ```
 
-> Full portfolio case study with live animations: [shubham0086.github.io/MyPortfolio.github.io/projects/equilibrium.html](https://shubham0086.github.io/MyPortfolio.github.io/projects/equilibrium.html)
+> Full portfolio case study with live animations: [my-portfolio-github-io-beta-five.vercel.app/projects/equilibrium.html](https://my-portfolio-github-io-beta-five.vercel.app/projects/equilibrium.html)
 
 ---
 
